@@ -6,9 +6,6 @@ services:
 
     container_name: laravel-app
 
-    volumes:
-      - .:/var/www
-
     networks:
       - laravel
 
