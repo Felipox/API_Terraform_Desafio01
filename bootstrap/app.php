@@ -12,8 +12,12 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        api: __DIR__.'/../routes/api.php',
+        api: __DIR__.'/../routes/api.php'
     )
+    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
+        $schedule->job(new \App\Jobs\DataBaseConnectionJob())
+            ->everyThirtySeconds();
+    })
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->use([
         \Illuminate\Http\Middleware\HandleCors::class,

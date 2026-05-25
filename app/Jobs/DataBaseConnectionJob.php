@@ -19,7 +19,6 @@ class DataBaseConnectionJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private const MAX_FAILURES     = 3;
-    private const STATE_FILE       = storage_path('app/db_state.json');
     private const CACHE_KEY        = 'db_active_connection';
 
     public function handle(): void
@@ -37,6 +36,11 @@ class DataBaseConnectionJob implements ShouldQueue
             Log::error('Falha na conexão com o banco de dados primário. Iniciando failover para o secundário.');
             $this->runFailOver();
         }
+    }
+
+    private function state_file(): string
+    {
+        return storage_path('app/db_state.json');
     }
 
     private function canConnect(): bool
@@ -65,17 +69,17 @@ class DataBaseConnectionJob implements ShouldQueue
 
     private function readState(): array
     {
-        if (!file_exists(self::STATE_FILE)) {
+        if (!file_exists($this->state_file())) {
             return ['failures' => 0];
         }
 
-       return json_decode(file_get_contents(self::STATE_FILE), true) ?? [];
+       return json_decode(file_get_contents($this->state_file()), true) ?? [];
     }
 
     private function saveState(array $data): void
     {
         $state = array_merge($this->readState(), $data, ['updated_at' => now()->toISOString()]);
-        file_put_contents(self::STATE_FILE, json_encode($state, JSON_PRETTY_PRINT));
+        file_put_contents($this->state_file(), json_encode($state, JSON_PRETTY_PRINT));
     }
 
 }
