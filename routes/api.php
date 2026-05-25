@@ -28,3 +28,8 @@ route::patch('/posts/{id}/archive',[PostsController::class, 'archivePost'])->mid
 route::post('/posts/{id}/comments',[CommentsController::class,'create'])->middleware('auth:sanctum');
 route::get('/posts/{id}/comments',[CommentsController::class,'index'])->middleware('auth:sanctum');
 route::delete('/comments/{id}',[CommentsController::class,'delete'])->middleware('auth:sanctum');
+
+//Heath
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok']);
+});
