@@ -127,6 +127,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'failover' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/failover.log'),
+            'level' => 'debug',
+            'days' => 14,
+        ],
     ],
 
 ];
