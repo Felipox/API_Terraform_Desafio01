@@ -4,31 +4,19 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\DatabaseConnectionService;
+
+use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class DataBaseConnectionJob implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+    const CACHE_KEY        = 'db_active_connection';
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        DB::connection("cloud")->select("SELECT 1");
-        
+        Cache::put(self::CACHE_KEY, "local");
     }
 }

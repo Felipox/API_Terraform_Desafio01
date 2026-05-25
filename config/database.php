@@ -83,22 +83,22 @@ return [
             ]) : [],
         ],
 
-        'cloud' => [
+        'pgsql' => [
         'driver'   => 'pgsql',
         'host'     => env('DB_CLOUD_HOST'),
-        'port'     => env('DB_CLOUD_PORT', 5432),
-        'database' => env('DB_CLOUD_DATABASE'),
-        'username' => env('DB_CLOUD_USERNAME'),
-        'password' => env('DB_CLOUD_PASSWORD'),
+        'port'     => env('DB_PORT', 5432),
+        'database' => env('DB_DATABASE'),
+        'username' => env('DB_USERNAME'),
+        'password' => env('DB_PASSWORD'),
         ],
-        
+
         'local' => [
         'driver'   => 'pgsql',
         'host'     => env('DB_LOCAL_HOST', '127.0.0.1'),
-        'port'     => env('DB_LOCAL_PORT', 5432),
-        'database' => env('DB_LOCAL_DATABASE'),
-        'username' => env('DB_LOCAL_USERNAME'),
-        'password' => env('DB_LOCAL_PASSWORD'),
+        'port'     => env('DB_PORT', 5432),
+        'database' => env('DB_DATABASE'),
+        'username' => env('DB_USERNAME'),
+        'password' => env('DB_PASSWORD'),
         ],
 
         'sqlsrv' => [
