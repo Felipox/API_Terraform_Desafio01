@@ -4,10 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
 
+    env_file:
+      - .env
+      
     container_name: laravel-app
-
-    volumes:
-      - .:/var/www
 
     networks:
       - laravel
